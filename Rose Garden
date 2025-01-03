@@ -1,0 +1,34 @@
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        int maxi=0;
+        for(int i=0;i<bloomDay.length;i++){
+            maxi=Math.max(maxi,bloomDay[i]);
+        }
+        int low=0,high=maxi,ans=-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(canmake(mid,bloomDay,k)>=m){
+                ans=mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+    public int canmake(int mid,int[] arr,int k){
+        int cnt=0,bqtcnt=0;
+        for(int i=0;i<arr.length;i++){
+            if(mid>=arr[i]){
+                cnt++;
+            }else{
+                cnt=0;
+            }
+            if(cnt==k){
+                bqtcnt++;
+                cnt=0;
+            }
+        }
+        return bqtcnt;
+    } 
+}
